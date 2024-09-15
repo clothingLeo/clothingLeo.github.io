@@ -1235,19 +1235,34 @@
           });
         });
       
-        function addProductToCart(product) {
-          let cart = JSON.parse(localStorage.getItem('cart')) || [];
-          const existingProduct = cart.find(item => item.name === product.name);
-      
-          if (existingProduct) {
-            existingProduct.quantity += 1;
-          } else {
-            cart.push(product);
-          }
-      
-          localStorage.setItem('cart', JSON.stringify(cart));
-          alert(`${product.name} added to cart`);
-        }
+     function addProductToCart(product) {
+  // Ensure product object has a name property
+  if (!product || !product.name) {
+    console.error('Product or product name is undefined');
+    return;
+  }
+
+  // Retrieve the cart from local storage or initialize as an empty array
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Check if the product already exists in the cart
+  const existingProduct = cart.find(item => item.name === product.name);
+
+  if (existingProduct) {
+    // If it exists, increment the quantity
+    existingProduct.quantity += 1;
+  } else {
+    // Otherwise, add the new product to the cart
+    cart.push(product);
+  }
+
+  // Update the cart in local storage
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Alert with the product name
+  alert(`${product.name} added to cart`);
+}
+
       </script>
       
 </body>
