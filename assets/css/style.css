@@ -1365,14 +1365,14 @@ h1{
 .slider-img.active .details p, .slider-img.active .details h2{
   display: block;
 }
-@keyframes slide {
+/*@keyframes slide {
   0% {
     transform: translateX(0%);
   }
   100% {
     transform: translateX(-50%);
   }
-}
+}*/
 
 .slider-container {
   overflow: hidden; /* Hide the overflowing images */
