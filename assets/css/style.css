@@ -1400,3 +1400,72 @@ h1{
 .slider-images:hover {
   animation-play-state: paused;
 }
+
+@media (max-width: 926px) {
+  .slider-container {
+    height: auto;
+    padding: 10px;
+  }
+
+  .slider-images {
+    flex-direction: column; /* Change to vertical layout */
+    gap: 10px; /* Adjust gap between images */
+  }
+
+  .slider-img {
+    width: 100%; /* Make the images full-width */
+    height: auto; /* Auto height to maintain aspect ratio */
+  }
+
+  h1 {
+    font-size: 24px;
+    left: 0;
+    top: 50%;
+    transform: rotate(270deg);
+  }
+
+  .details {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .details h2 {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  .details p {
+    font-size: 16px;
+    line-height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .slider-images {
+    gap: 5px; /* Smaller gap for very small screens */
+  }
+
+  .slider-img {
+    width: 100%; /* Ensure images are full-width */
+    padding: 3px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  .details {
+    bottom: 10px;
+    left: 10px;
+  }
+
+  .details h2 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .details p {
+    font-size: 14px;
+    line-height: 22px;
+  }
+} 
