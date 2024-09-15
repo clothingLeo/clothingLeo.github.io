@@ -1382,7 +1382,6 @@ h1{
   display: flex;
   align-items: center;
   gap: 21px;
-  animation: slide 30s linear infinite;
   /* Animation will loop infinitely */
 }
 
