@@ -483,7 +483,56 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
  </script>
-  <!-- Modal HTML -->
+  <!-- email js server  -->
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script>
+(function() {
+   emailjs.init('r5M3Vv2brvdnJdGiM'); // Initialize EmailJS with your public key
+})();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const checkoutForm = document.getElementById('checkoutForm');
+
+  // Handle form submission to send an email
+  checkoutForm.addEventListener('submit', (e) => {
+    e.preventDefault(); // Prevent form from submitting normally
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+
+    // Get cart details from local storage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartDetails = cart.map(product => `${product.name} (Quantity: ${product.quantity}) - TND ${(product.price * product.quantity).toFixed(2)}`).join('\n');
+
+    const totalPriceElement = document.getElementById('total-price');
+    const totalPrice = totalPriceElement.textContent;
+
+    // EmailJS data
+    const emailParams = {
+      from_name: name,
+      email: email,
+      phone: phone,
+      cart_details: cartDetails,
+      total_price: totalPrice
+    };
+
+    // Send email using EmailJS
+    emailjs.send('service_nglugm7', 'template_srck7qj', emailParams)
+      .then(() => {
+        alert('Order placed successfully! An email has been sent.');
+        localStorage.removeItem('cart');
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('Error sending email:', error);
+        alert('Failed to place order. Please try again.');
+      });
+  });
+});
+</script>
+
 
 </body>
 </html>
