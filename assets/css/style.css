@@ -1395,4 +1395,8 @@ h1{
   flex-shrink: 0; /* Prevents shrinking of images */
 }
 
-
+/* Pause animation on hover over .slider-container or .slider-images */
+.slider-container:hover .slider-images,
+.slider-images:hover {
+  animation-play-state: paused;
+}
