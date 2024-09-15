@@ -3,7 +3,23 @@
 /**
  * navbar toggle
  */
+const sliderImages = document.querySelectorAll('.slider-img');
+let currentIndex = 0;
+const totalImages = sliderImages.length;
 
+function showNextImage() {
+  // Remove the 'active' class from the current image
+  sliderImages[currentIndex].classList.remove('active');
+  
+  // Update the currentIndex to the next image (circular movement)
+  currentIndex = (currentIndex + 1) % totalImages;
+  
+  // Add the 'active' class to the next image
+  sliderImages[currentIndex].classList.add('active');
+}
+
+// Automatically change the image every 20 seconds
+setInterval(showNextImage, 5000);
 const overlay = document.querySelector("[data-overlay]");
 const navOpenBtn = document.querySelector("[data-nav-open-btn]");
 const navbar = document.querySelector("[data-navbar]");
