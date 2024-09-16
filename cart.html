@@ -449,7 +449,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
   </script>
   <!-- email js server  -->
-<script>
+
+  <script>
 (function() {
    emailjs.init('r5M3Vv2brvdnJdGiM'); // Initialize EmailJS with your public key
 })();
@@ -459,7 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle form submission to send an email
   checkoutForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent form from submitting normally
+    e.preventDefault(); // Prevent form submission
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
@@ -469,11 +470,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     let cartDetails = cart.map(product => `${product.name} (Quantity: ${product.quantity}) - TND ${(product.price * product.quantity).toFixed(2)}`).join('\n');
 
-    const totalPriceElement = document.getElementById('total-price');
+    const totalPriceElement = document.getElementById('final-total-price');
     const totalPrice = totalPriceElement.textContent;
 
     // EmailJS data
-    const emailParams = {
+    const templateParams = {
       from_name: name,
       email: email,
       phone: phone,
@@ -482,19 +483,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Send email using EmailJS
-    emailjs.send('service_nglugm7', 'template_srck7qj', emailParams)
-      .then(() => {
-        alert('Order placed successfully! An email has been sent.');
-        localStorage.removeItem('cart');
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error('Error sending email:', error);
+    emailjs.send('service_nglugm7', 'template_srck7qj', templateParams)
+      .then((response) => {
+        alert('Order placed successfully!');
+        localStorage.removeItem('cart'); // Clear cart after successful order
+        window.location.reload(); // Reload the page to reset the form and cart
+      }, (error) => {
         alert('Failed to place order. Please try again.');
+        console.log('Failed to send email:', error);
       });
   });
 });
 </script>
+
 <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.7.0/email.min.js"></script>
 
 </body>
