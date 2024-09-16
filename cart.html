@@ -128,6 +128,12 @@
   </style>
 </head>
 <body>
+   <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.7.0/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init('r5M3Vv2brvdnJdGiM'); // Initialize EmailJS with your public key
+    })();
+  </script>
    <header class="header" data-header>
     <div class="container">
 
@@ -448,53 +454,43 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
   </script>
- <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.7.0/email.min.js"></script>
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const checkoutForm = document.getElementById('checkoutForm');
 
-  <script>
-(function() {
-   emailjs.init('r5M3Vv2brvdnJdGiM'); // Initialize EmailJS with your public key
-})();
+      checkoutForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-document.addEventListener('DOMContentLoaded', () => {
-  const checkoutForm = document.getElementById('checkoutForm');
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
 
-  // Handle form submission to send an email
-  checkoutForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent form submission
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cartDetails = cart.map(product => `${product.name} (Quantity: ${product.quantity}) - TND ${(product.price * product.quantity).toFixed(2)}`).join('\n');
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
+        const totalPriceElement = document.getElementById('final-total-price');
+        const totalPrice = totalPriceElement.textContent;
 
-    // Get cart details from local storage
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let cartDetails = cart.map(product => `${product.name} (Quantity: ${product.quantity}) - TND ${(product.price * product.quantity).toFixed(2)}`).join('\n');
+        const templateParams = {
+          from_name: name,
+          email: email,
+          phone: phone,
+          cart_details: cartDetails,
+          total_price: totalPrice
+        };
 
-    const totalPriceElement = document.getElementById('final-total-price');
-    const totalPrice = totalPriceElement.textContent;
-
-    // EmailJS data
-    const templateParams = {
-      from_name: name,
-      email: email,
-      phone: phone,
-      cart_details: cartDetails,
-      total_price: totalPrice
-    };
-
-    // Send email using EmailJS
-    emailjs.send('service_nglugm7', 'template_srck7qj', templateParams)
-      .then((response) => {
-        alert('Order placed successfully!');
-        localStorage.removeItem('cart'); // Clear cart after successful order
-        window.location.reload(); // Reload the page to reset the form and cart
-      }, (error) => {
-        alert('Failed to place order. Please try again.');
-        console.log('Failed to send email:', error);
+        emailjs.send('service_nglugm7', 'template_srck7qj', templateParams)
+          .then((response) => {
+            alert('Order placed successfully!');
+            localStorage.removeItem('cart');
+            window.location.reload();
+          }, (error) => {
+            alert('Failed to place order. Please try again.');
+            console.log('Failed to send email:', error);
+          });
       });
-  });
-});
-</script>
+    });
+  </script>
 
 
 
