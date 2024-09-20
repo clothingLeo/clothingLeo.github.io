@@ -460,6 +460,85 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const checkoutForm = document.getElementById('checkoutForm');
+    const colorMap = {
+  '#ff0000': 'Red',
+  '#0000ff': 'Blue',
+  '#ffff00': 'Yellow',
+  '#008000': 'Green',
+  '#000000': 'Black',
+  '#ffffff': 'White',
+  '#ffa500': 'Orange',
+  '#800080': 'Purple',
+  '#00ffff': 'Cyan',
+  '#ff00ff': 'Magenta',
+  '#808080': 'Gray',
+  '#a52a2a': 'Brown',
+  '#f0e68c': 'Khaki',
+  '#ff6347': 'Tomato',
+  '#4682b4': 'SteelBlue',
+  '#ff4500': 'OrangeRed',
+  '#daa520': 'GoldenRod',
+  '#00ff00': 'Lime',
+  '#ffd700': 'Gold',
+  '#800000': 'Maroon',
+  '#c0c0c0': 'Silver',
+  '#add8e6': 'LightBlue',
+  '#ff69b4': 'HotPink',
+  '#f08080': 'LightCoral',
+  '#e0ffff': 'LightCyan',
+  '#fafad2': 'LightGoldenRodYellow',
+  '#90ee90': 'LightGreen',
+  '#d3d3d3': 'LightGray',
+  '#ffb6c1': 'LightPink',
+  '#ffa07a': 'LightSalmon',
+  '#20b2aa': 'LightSeaGreen',
+  '#87cefa': 'LightSkyBlue',
+  '#778899': 'LightSlateGray',
+  '#b0c4de': 'LightSteelBlue',
+  '#ffffe0': 'LightYellow',
+  '#00fa9a': 'MediumSpringGreen',
+  '#7b68ee': 'MediumSlateBlue',
+  '#4682b4': 'SteelBlue',
+  '#d2691e': 'Chocolate',
+  '#b8860b': 'DarkGoldenRod',
+  '#006400': 'DarkGreen',
+  '#8b0000': 'DarkRed',
+  '#2f4f4f': 'DarkSlateGray',
+  '#00ced1': 'DarkTurquoise',
+  '#9400d3': 'DarkViolet',
+  '#ff1493': 'DeepPink',
+  '#00bfff': 'DeepSkyBlue',
+  '#696969': 'DimGray',
+  '#1e90ff': 'DodgerBlue',
+  '#b22222': 'FireBrick',
+  '#228b22': 'ForestGreen',
+  '#ff00ff': 'Fuchsia',
+  '#808000': 'Olive',
+  '#6b8e23': 'OliveDrab',
+  '#cd5c5c': 'IndianRed',
+  '#4b0082': 'Indigo',
+  '#f0e68c': 'Khaki',
+  '#e6e6fa': 'Lavender',
+  '#7cfc00': 'LawnGreen',
+  '#fffacd': 'LemonChiffon',
+  '#add8e6': 'LightBlue',
+  '#e0ffff': 'LightCyan',
+  '#faebd7': 'AntiqueWhite',
+  '#ffefd5': 'PapayaWhip',
+  '#ffdab9': 'PeachPuff',
+  '#cd853f': 'Peru',
+  '#ffc0cb': 'Pink',
+  '#dda0dd': 'Plum',
+  '#b0e0e6': 'PowderBlue',
+  '#ff6347': 'Tomato',
+  '#40e0d0': 'Turquoise',
+  '#ee82ee': 'Violet',
+  '#f5deb3': 'Wheat',
+  '#f5f5f5': 'WhiteSmoke',
+  '#9acd32': 'YellowGreen'
+  // Add more colors if necessary
+};
+
     checkoutForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -468,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const phone = document.getElementById('phone').value;
       const altPhone = document.getElementById('alt-phone').value; // Additional phone number
       const size = document.getElementById('size').value;
-      const color = document.getElementById('color').value;
+      const colorHex = document.getElementById('color').value;
       const address = document.getElementById('address').value;
 
       // Get cart details from local storage
@@ -477,6 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const totalPriceElement = document.getElementById('final-total-price');
       const totalPrice = totalPriceElement.textContent;
+      const color = colorMap[colorHex] || colorHex;
 
       // Email template parameters including the new fields
       const templateParams = {
